@@ -30,6 +30,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,6 +40,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.text.TextPaint;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -67,8 +69,10 @@ public class DigitalAppWidgetService extends Service {
     private float densityMultiplier;
     private int density;
     private final Handler mHandler = new Handler();
-    Typeface clock;
-    TextPaint paint;
+    private Typeface clock;
+    private TextPaint paint;
+    private SharedPreferences mPrefs;
+    private int color;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -98,6 +102,8 @@ public class DigitalAppWidgetService extends Service {
 
         paint = new TextPaint();
 
+        mPrefs =  PreferenceManager.getDefaultSharedPreferences(this);
+
         File f = new File(SYSTEM_FONT_ANDROIDCLOCK);
         if (f.exists()) {
             clock = Typeface.createFromFile(SYSTEM_FONT_ANDROIDCLOCK);
@@ -110,13 +116,24 @@ public class DigitalAppWidgetService extends Service {
             }
         }
 
+        int aColor = new Integer(mPrefs.getInt(
+				SettingsActivity.DIGITAL_CLOCK_ALPHA, DeskClock.DEFAULT_SCREENSAVER_COLOR_ALPHA));
+        int rColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_RED, DeskClock.DEFAULT_SCREENSAVER_COLOR_RED));
+        int gColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_GREEN, DeskClock.DEFAULT_SCREENSAVER_COLOR_GREEN));
+        int bColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_BLUE, DeskClock.DEFAULT_SCREENSAVER_COLOR_BLUE));
+
+        color = Color.argb(aColor, rColor, gColor, bColor);
+
         paint.setAntiAlias(true);
         paint.setSubpixelText(true);
         paint.setFilterBitmap(true);
         paint.setLinearText(true);
         paint.density = densityMultiplier;
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.time_text_color));
+        paint.setColor(color);
         paint.setTextSize((int) (92 * densityMultiplier));
         paint.setTextAlign(Align.RIGHT);
     }
@@ -175,16 +192,29 @@ public class DigitalAppWidgetService extends Service {
 
         final CharSequence newTime = DateFormat.format(mFormat, mCalendar);
 
+        int aColor = new Integer(mPrefs.getInt(
+				SettingsActivity.DIGITAL_CLOCK_ALPHA, DeskClock.DEFAULT_SCREENSAVER_COLOR_ALPHA));
+        int rColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_RED, DeskClock.DEFAULT_SCREENSAVER_COLOR_RED));
+        int gColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_GREEN, DeskClock.DEFAULT_SCREENSAVER_COLOR_GREEN));
+        int bColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_BLUE, DeskClock.DEFAULT_SCREENSAVER_COLOR_BLUE));
+
+        color = Color.argb(aColor, rColor, gColor, bColor);
+
         if (DEBUG)
             Log.d(TAG, "new time: " + newTime);
 
         final Date now = new Date();
 
+        views.setTextColor(R.id.date, color);
         views.setTextViewText(R.id.date, DateFormat.format(mDateFormat, now));
 
         views.setImageViewBitmap(R.id.timeDisplayImage,
                 createTimeBitmap(newTime));
 
+        views.setTextColor(R.id.am_pm, color);
         views.setTextViewText(R.id.am_pm,
                 mCalendar.get(Calendar.AM_PM) == 0 ? mAmString : mPmString);
 
@@ -207,6 +237,20 @@ public class DigitalAppWidgetService extends Service {
     public Bitmap createTimeBitmap(CharSequence time) {
 
         Rect bounds = new Rect();
+
+        int aColor = new Integer(mPrefs.getInt(
+				SettingsActivity.DIGITAL_CLOCK_ALPHA, DeskClock.DEFAULT_SCREENSAVER_COLOR_ALPHA));
+        int rColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_RED, DeskClock.DEFAULT_SCREENSAVER_COLOR_RED));
+        int gColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_GREEN, DeskClock.DEFAULT_SCREENSAVER_COLOR_GREEN));
+        int bColor = new Integer(mPrefs.getInt(
+        		SettingsActivity.DIGITAL_CLOCK_BLUE, DeskClock.DEFAULT_SCREENSAVER_COLOR_BLUE));
+
+        color = Color.argb(aColor, rColor, gColor, bColor);
+
+        paint.setColor(color);
+
         paint.getTextBounds("00:00", 0, 5, bounds);
 
         Bitmap myBitmap = Bitmap.createBitmap(bounds.width() + (int) (5 * densityMultiplier),

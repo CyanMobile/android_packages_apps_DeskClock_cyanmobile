@@ -120,10 +120,10 @@ public class DeskClock extends Activity {
     // Color to use for text & graphics in screen saver mode.
 //    private final int SCREEN_SAVER_COLOR = 0xFF00C0FF;
 //    private final int SCREEN_SAVER_COLOR_DIM = 0xFF004880;
-    static final int DEFAULT_SCREENSAVER_COLOR_ALPHA = 130;
+    static final int DEFAULT_SCREENSAVER_COLOR_ALPHA = 155;
     static final int DEFAULT_SCREENSAVER_COLOR_RED = 0;
-    static final int DEFAULT_SCREENSAVER_COLOR_GREEN = 192;
-    static final int DEFAULT_SCREENSAVER_COLOR_BLUE = 255;
+    static final int DEFAULT_SCREENSAVER_COLOR_GREEN = 255;
+    static final int DEFAULT_SCREENSAVER_COLOR_BLUE = 0;
 
     // Opacity of black layer between clock display and wallpaper.
     private final float DIM_BEHIND_AMOUNT_NORMAL = 0.4f;

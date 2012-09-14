@@ -54,7 +54,15 @@ public class SettingsActivity extends PreferenceActivity
 		"screensaver_color_green";
 	static final String SCREENSAVER_COLOR_BLUE = 
 		"screensaver_color_blue";
-    
+    static final String DIGITAL_CLOCK_ALPHA = 
+    	"digitalclock_color_alpha";
+	static final String DIGITAL_CLOCK_RED = 
+		"digitalclock_color_red";
+	static final String DIGITAL_CLOCK_GREEN = 
+		"digitalclock_color_green";
+	static final String DIGITAL_CLOCK_BLUE = 
+		"digitalclock_color_blue";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

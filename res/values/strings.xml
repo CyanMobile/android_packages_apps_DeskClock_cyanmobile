@@ -334,6 +334,12 @@
     <!-- Setting title for screensaver time color picker -->
     <string name="color_picker_summary">Change the color of the time used in screensaver mode</string>
 
+    <!-- Setting title for digital time color picker -->
+    <string name="clock_color_picker_title">Time Color (Widget)</string>
+
+    <!-- Setting title for digital time color picker -->
+    <string name="clock_color_picker_summary">Change the color of the time used in Digital Clock widget</string>
+
     <!-- Sample time used in color picker -->
     <string name="color_picker_sample">11:45</string>
 

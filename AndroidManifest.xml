@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.DEVICE_POWER" />
 
     <application android:label="@string/app_label"
-                 android:icon="@drawable/ic_launcher_alarmclock" android:theme="@style/CustomTheme">
+                 android:icon="@drawable/ic_launcher_alarmclock">
 
         <provider android:name="AlarmProvider"
                 android:authorities="com.android.deskclock"
@@ -42,6 +42,7 @@
         <activity android:name="AlarmClock"
                 android:label="@string/alarm_list_title"
                 android:taskAffinity=""
+                android:theme="@style/CustomTheme"
                 android:excludeFromRecents="true"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"
                 android:exported="true" />
@@ -68,6 +69,18 @@
 			android:theme="@android:style/Theme.Dialog">
 			<intent-filter>
             	<action android:name="com.android.alarmclock.ColorPicker" />
+            	<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+		</activity>
+
+        <activity 
+        	android:name="ClockColorPicker" 
+			android:label="@string/color_picker"
+			android:taskAffinity=""
+			android:excludeFromRecents="true"
+			android:theme="@android:style/Theme.Dialog">
+			<intent-filter>
+            	<action android:name="com.android.alarmclock.ClockColorPicker" />
             	<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 		</activity>
