@@ -164,6 +164,14 @@
             <meta-data android:name="android.appwidget.oldName" android:value="com.android.deskclock.AnalogAppWidgetProvider" />
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_appwidget" />
         </receiver>
+        <receiver android:name="com.android.alarmclock.AnalogDefaultAppWidgetProvider" android:label="@string/analogdefault_gadget"
+        	android:icon="@drawable/ic_widget_analog_clock">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.oldName" android:value="com.android.deskclock.AnalogDefaultAppWidgetProvider" />
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/analogdefault_appwidget" />
+        </receiver>
         <receiver android:name=".DigitalAppWidgetProvider" android:label="@string/digital_gadget"
 		       android:icon="@drawable/ic_widget_digital_clock">
 		     <intent-filter>
