@@ -37,9 +37,9 @@ public class AnalogDefaultAppWidgetProvider extends BroadcastReceiver {
 
         if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
             RemoteViews views = new RemoteViews(context.getPackageName(),
-                    R.layout.analogdefault_appwidget);
+                    R.layout.analogsecond_appwidget);
 
-            views.setOnClickPendingIntent(R.id.analogdefault_appwidget,
+            views.setOnClickPendingIntent(R.id.analogsecond_appwidget,
                     PendingIntent.getActivity(context, 0,
                         new Intent(context, AlarmClock.class),
                         PendingIntent.FLAG_CANCEL_CURRENT));

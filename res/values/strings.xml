@@ -157,8 +157,8 @@
     <string name="day_concat">", "</string>
 
     <!-- Label for analog clock gadget, shown in list of all gadgets -->
-    <string name="analog_gadget">Analog clock second</string>
-    <string name="analogdefault_gadget">Analog clock</string>
+    <string name="analogsecond_gadget">Analog clock second</string>
+    <string name="analog_gadget">Analog clock</string>
 
     <!-- Label for digital clock gadget, shown in list of all gadgets -->
     <string name="digital_gadget">Digital clock</string>

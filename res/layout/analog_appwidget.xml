@@ -14,11 +14,10 @@
      limitations under the License.
 -->
 
-<AnalogClockSecond xmlns:android="http://schemas.android.com/apk/res/android"
+<AnalogClock xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/analog_appwidget"
     android:dials="@drawable/appwidget_clock_dial"
     android:hand_hours="@drawable/appwidget_clock_hour"
     android:hand_minutes="@drawable/appwidget_clock_minute"
-    android:hand_seconds="@drawable/appwidget_clock_second"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
