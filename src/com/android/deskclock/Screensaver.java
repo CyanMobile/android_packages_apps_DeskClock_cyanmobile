@@ -25,6 +25,7 @@ import android.animationing.AnimatorSet;
 import android.app.Activity;
 import android.os.Handler;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import java.lang.Runnable;
 import android.util.Log;
+
+import java.util.Random;
 
 public class Screensaver extends Activity {
     View mContainer;
@@ -51,6 +54,9 @@ public class Screensaver extends Activity {
                 return (float)(Math.cos((Math.pow(x,3) + 1) * Math.PI) / 2.0f) + 0.5f;
             }
         };
+
+    TextView timeDisplay;
+    TextView amPm;
 
     private Handler mHandler = new Handler();
 
@@ -136,6 +142,19 @@ public class Screensaver extends Activity {
         }
     };
 
+    private Runnable mColorSaverRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Random rnd = new Random();
+            CLOCK_COLOR = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            if (timeDisplay != null) timeDisplay.setTextColor(CLOCK_COLOR);
+            if (amPm != null) amPm.setTextColor(CLOCK_COLOR);
+
+            mHandler.removeCallbacks(this);
+            mHandler.postDelayed(this, FADE_TIME);
+        }
+    };
+
     @Override
     public void onStart() {
         super.onStart();
@@ -144,12 +163,10 @@ public class Screensaver extends Activity {
         mContainer = findViewById(R.id.saver_view);
         mContainer.setAlpha(0);
 
-        TextView timeDisplay = (TextView) findViewById(R.id.timeDisplay);
-        if (timeDisplay != null) {
-            timeDisplay.setTextColor(CLOCK_COLOR);
-            TextView amPm = (TextView)findViewById(R.id.am_pm);
-            if (amPm != null) amPm.setTextColor(CLOCK_COLOR);
-        }
+        timeDisplay = (TextView) findViewById(R.id.timeDisplay);
+        amPm = (TextView)findViewById(R.id.am_pm);
+        if (timeDisplay != null) timeDisplay.setTextColor(CLOCK_COLOR);
+        if (amPm != null) amPm.setTextColor(CLOCK_COLOR);
 
         getWindow().addFlags(
                   WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -163,6 +180,7 @@ public class Screensaver extends Activity {
         super.onResume();
 
         mMoveSaverRunnable.run();
+        mColorSaverRunnable.run();
     }
 
     @Override
@@ -170,6 +188,7 @@ public class Screensaver extends Activity {
         super.onPause();
 
         mHandler.removeCallbacks(mMoveSaverRunnable);
+        mHandler.removeCallbacks(mColorSaverRunnable);
     }
 
     @Override
